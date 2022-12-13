@@ -28,8 +28,8 @@ main/setup
 
 scr/main/resources
 
-TripAdviSOARClient_v4/nb-configuration.xml
+TripAdviSOAR_v4/nb-configuration.xml
 
-TripAdviSOARClient_v4/pom.xml
+TripAdviSOAR_v4/pom.xml
 
-TripAdviSOARClient_v4/target
+TripAdviSOAR_v4/target
