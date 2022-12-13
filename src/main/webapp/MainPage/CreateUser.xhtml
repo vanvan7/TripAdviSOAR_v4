@@ -1,0 +1,121 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>TripAdviSOAR</title><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"></link>
+        <meta charset="utf-8"></meta>
+        <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"></link>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+        .jumbotron {
+        background-color: rgba(0,0,0,.3);
+        background-size: cover;
+        }
+        .jumbotron h1,p{
+            color: whitesmoke; 
+        }
+        </style>
+ 
+    </h:head>
+    <h:body >
+    <div class="jumbotron text-center"  style="margin-bottom:0" >
+
+
+        <h1>Create an Account</h1>
+        <p>TripAdviSOAR / Customer Account</p> 
+    </div>
+
+    <style>
+        body {
+            background-image:url('https://insights.regencylighting.com/hubfs/Blog_Images/blurred-lines-restaurant-lighting.jpg');
+            background-repeat:no-repeat;
+            background-attachment:fixed;  
+            background-size:cover;
+            text-align:center;           
+            margin-bottom: 100px;
+        }
+        input{
+            color:black;
+            font-style:italic;
+            text-align:center;
+        }
+
+        h1{
+            color:black;
+        }
+
+
+        </style>
+        
+        
+        <!-- NAVBAR-->
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark x-large">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <h5>
+                    <ul class="navbar-nav">
+
+                        <li class="nav-item" >
+                            <h:link class="nav-link" value="Go Back to Main Menu" outcome="/MainPage/MainPage.xhtml?faces-redirect=true" />
+                        </li>                               
+                    </ul>
+                </h5>
+            </div>  
+        </nav>
+        <br/>
+        <br/>
+        <!-- NAVBAR-->
+        
+        <!--TABLE-->
+        <style>
+            Table {
+                border-collapse: collapse;
+                width: 90%;
+                margin:0px auto;
+                background-color:rgba(255,255,255,.75);
+                text-align:center;
+
+            }
+
+            th, td {
+                padding: 8px;
+                text-align: left;
+                border-bottom: 1px solid #DDD;
+                text-align:center;
+
+            }
+
+            tr:hover {background-color: #F6DDCC;}
+        </style>
+        <!--TABLE-->
+        
+        <h:form>
+            <h3>
+            <h:panelGrid columns="2" style= "width:40%;margin:0px auto;">
+                <h:outputText value="Username"/>
+                <h:inputText value="#{userSenzu.username}" />
+                <h:outputText value="First Name"/>
+                <h:inputText value="#{userSenzu.firstname}" />
+                <h:outputText value="Last Name"/>
+                <h:inputText value="#{userSenzu.lastname}" />
+                <h:outputText value="Email"/>
+                <h:inputText value="#{userSenzu.email}" />
+                <h:outputText value="Password"/>
+                <h:inputSecret value="#{userSenzu.password}" />
+                </h:panelGrid>
+                <br/>
+                <h:commandButton value="Create a User" action="#{userSenzu.createAUser()}" />                 
+                    
+                <br/>
+            </h3>
+            </h:form>
+    </h:body>
+</html>
+
