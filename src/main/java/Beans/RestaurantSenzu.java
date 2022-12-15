@@ -24,7 +24,10 @@ import java.util.List;
 @SessionScoped
 public class RestaurantSenzu implements Serializable {
 
+    private String username = "";
+    private String password = "";
     private String restaurantName = "";
+    private String email = "";
     private String restaurantOwner = "";
     private String address = "";
     private String openingHours = "";
@@ -33,7 +36,7 @@ public class RestaurantSenzu implements Serializable {
     private String contact = "";
     private String menu = "";
     private String specialdiet = "";
-    private Integer ratings;
+    private String rating;
     private ArrayList<Integer> ratinglist;
     
 
@@ -53,63 +56,120 @@ public class RestaurantSenzu implements Serializable {
 //       
 //    }
     
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
     public String getRestaurantName() {
         return restaurantName;
         
     }
-
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
     }
     
-    public void setRatings(Integer ratings)  {
-        this.ratings=ratings;
+    public String getEmail() {
+        return email;
     }
-    
-    public void setRatinglist (ArrayList<Integer> ratinglist){
-        this.ratinglist=ratinglist;
-    }
-    
 
-    public String getRestaurantOwnerName() {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
+    }
+
+    public String getRestaurantOwner() {
         return restaurantOwner;
+    }
+    
+     public void setRestaurantOwner(String restaurantOwner) {
+        this.restaurantOwner = restaurantOwner;
     }
     
     public String getAddress() {
         return address;
     }
     
-    public String getopeningHours() {
+    public void setAddress(String address) {
+        this.address = address;
+    }
+    
+    public String getOpeningHours() {
         return openingHours;
     }
+
+    public void setOpeningHours(String openingHours) {
+        this.openingHours = openingHours;
+    }
+    
     
     public String getPrice() {
         return price;
+    }
+    
+    public void setPrice (String price){
+        this.price = price;
     }
     
     public String getCookingtype() {
         return cookingtype;
     }
     
+    public void setCookingtype(String cookingtype) {
+        this.cookingtype = cookingtype;
+    }
+    
     public String getContact() {
         return contact;
+    }
+    
+    public void setContact(String contact) {
+        this.contact = contact;
+        
     }
     
     public String getMenu() {
         return menu;
     }
     
+    public void setMenu(String menu) {
+        this.menu = menu;
+    }
+    
     public String getSpecialdiet() {
         return specialdiet;
     }
     
-    public Integer getRatings() {
-        return ratings;
+    public void setSpecialdiet(String specialdiet) {
+        this.specialdiet = specialdiet;
     }
     
     public ArrayList<Integer> getRatinglist() {
         return ratinglist;
     }
+    
+    public void setRatinglist (ArrayList<Integer> ratinglist){
+        this.ratinglist=ratinglist;
+    }
+    
     
     public List<Restaurants> getRestaurants(){
         return PersistenceClient.getInstance().getAllRestaurants();

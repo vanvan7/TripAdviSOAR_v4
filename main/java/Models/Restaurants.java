@@ -139,7 +139,14 @@ public class Restaurants implements Serializable {
     public void setOpeningHours(String openingHours) {
         this.openingHours = openingHours;
     }
-
+    
+    public String getPrice() {
+        return price;
+    }
+    
+    public void setPrice (String price){
+        this.price = price;
+    }
 
     public Integer getPassword() {
         return password;
@@ -203,14 +210,6 @@ public class Restaurants implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price;
     }
 
     public String getCookingtype() {

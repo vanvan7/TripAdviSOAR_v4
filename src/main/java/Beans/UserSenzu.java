@@ -96,6 +96,14 @@ public class UserSenzu implements Serializable {
     public void setUsername(String username) {
         this.username = username;
     }
+    
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+    
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
+    }
  
     
 }

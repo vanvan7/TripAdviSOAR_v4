@@ -34,9 +34,9 @@ public class Restaurants {
     private String dish;
     private String menu;
     private String specialdiet;
-    private String ratings;
+    private String rating;
     private ArrayList<String> ratinglist;
-    private ArrayList<String> specialdietlist;
+//    private ArrayList<String> specialdietlist;
 
     //constructor 
     public Restaurants() {
@@ -78,12 +78,12 @@ public class Restaurants {
         return specialdiet;
     }
 
-    public ArrayList<String> getSpecialdietlist() {
-       return specialdietlist;
-    }
+//    public ArrayList<String> getSpecialdietlist() {
+//       return specialdietlist;
+//    }
     
-    public String getRatings() {
-        return ratings;
+    public String getRating() {
+        return rating;
     }
     
     public ArrayList<String> getRatinglist() {
@@ -131,9 +131,9 @@ public class Restaurants {
         this.password = password.hashCode();
     }
 
-    public void setRatings(String ratings)  {
-     this.ratings = ratings;
-     this.ratinglist.add(ratings);
+    public void setRating(String rating)  {
+        this.rating = rating;
+//        this.ratinglist.add(rating);
     }
     
     public void setAddress(String address) {
@@ -172,11 +172,11 @@ public class Restaurants {
         this.specialdiet = specialdiet;
     }
     
-    public void setSpecialdietlist(ArrayList<String> specialdietlist) {
-        this.specialdietlist = specialdietlist;
-        this.specialdiet = specialdietlist.toString().substring(1,specialdietlist.toString().length()-1);
-    
-    }
+//    public void setSpecialdietlist(ArrayList<String> specialdietlist) {
+//        this.specialdietlist = specialdietlist;
+//        this.specialdiet = specialdietlist.toString().substring(1,specialdietlist.toString().length()-1);
+//    
+//    }
     
     public void setRestaurantId(Integer restaurantId) {
         this.restaurantId = restaurantId;

@@ -57,9 +57,10 @@ public class PersistenceClient {
 
     public Users checkPassword(String username, int password) throws DoesNotExistException {
         Users u = getUserByName(username);
-        if (u.getUsername().equals(username) & u.getPassword() == password) {
-            return u;
-        }
+        if (u != null)
+            if (u.getUsername().equals(username) & u.getPassword() == password) {
+                return u;
+            }
         throw new DoesNotExistException("User " + username + " does not exist.");
     }
 
@@ -89,6 +90,7 @@ public class PersistenceClient {
     }
     
     public Users getUserByName(String username) {
+
         Users u = parseUser(client.target(USERS_URL + "/findByName/" + username).request().get(String.class));
         return u;
     }
@@ -185,7 +187,7 @@ public class PersistenceClient {
             restaurant.setCookingtype(e.getElementsByTagName("cookingtype").item(0).getTextContent());
             restaurant.setContact(e.getElementsByTagName("contact").item(0).getTextContent());
             restaurant.setMenu(e.getElementsByTagName("menu").item(0).getTextContent());
-            restaurant.setRatings(e.getElementsByTagName("rating").item(0).getTextContent());
+            restaurant.setRating(e.getElementsByTagName("rating").item(0).getTextContent());
             restaurant.setSpecialdiet(e.getElementsByTagName("specialdiet").item(0).getTextContent());
 
             restaurantList.add(restaurant);
@@ -212,7 +214,7 @@ public class PersistenceClient {
         restaurant.setCookingtype(e.getElementsByTagName("cookingtype").item(0).getTextContent());
         restaurant.setContact(e.getElementsByTagName("contact").item(0).getTextContent());
         restaurant.setMenu(e.getElementsByTagName("menu").item(0).getTextContent());
-        restaurant.setRatings(e.getElementsByTagName("rating").item(0).getTextContent());
+        restaurant.setRating(e.getElementsByTagName("rating").item(0).getTextContent());
         restaurant.setSpecialdiet(e.getElementsByTagName("specialdiet").item(0).getTextContent());
 
         return restaurant;
