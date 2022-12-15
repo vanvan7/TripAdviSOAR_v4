@@ -22,7 +22,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author srivathshanparamalingam
+ * @author chris
  */
 @Stateless
 @Path("models.restaurants")
@@ -69,19 +69,6 @@ public class RestaurantsFacadeREST extends AbstractFacade<Restaurants> {
         return super.findAll();
     }
 
-    @GET
-    @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Restaurants> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
-    }
-
-    @GET
-    @Path("count")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String countREST() {
-        return String.valueOf(super.count());
-    }
 
     @Override
     protected EntityManager getEntityManager() {

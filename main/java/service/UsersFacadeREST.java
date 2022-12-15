@@ -10,6 +10,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -22,7 +23,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author srivathshanparamalingam
+ * @author chris
  */
 @Stateless
 @Path("models.users")
@@ -35,28 +36,21 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
         super(Users.class);
     }
 
-    @POST
-    @Override
-    @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Users entity) {
-        super.create(entity);
-    }
-
     @PUT
-    @Path("{id}")
+    @Path("/edit/{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Users entity) {
         super.edit(entity);
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("/remove/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
-    @Path("{id}")
+    @Path("/find/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Users find(@PathParam("id") Integer id) {
         return super.find(id);
@@ -70,22 +64,22 @@ public class UsersFacadeREST extends AbstractFacade<Users> {
     }
 
     @GET
-    @Path("{from}/{to}")
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Users> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    @Path("/findByName/{name}")
+    public Users findByName(@PathParam("name") String userName) {
+        return super.findByName("Users.findByUsername", "username", userName);
     }
 
     @GET
-    @Path("count")
-    @Produces(MediaType.TEXT_PLAIN)
-    public String countREST() {
-        return String.valueOf(super.count());
+    @Path("/emailExists/{email}")
+    public boolean emailExists(@PathParam("email") String email) {
+        Query query = em.createNamedQuery("Users.findByEmail");
+        List<Users> results = query.setParameter("email", email).getResultList();
+        return results.size() == 1;
     }
 
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
 }

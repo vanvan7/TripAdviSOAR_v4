@@ -9,7 +9,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.ArrayList;
 import java.util.List;
-import Beans.RestaurantSenzu;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -56,6 +55,7 @@ public class Restaurants implements Serializable {
     @Column(name = "RESTAURANT_NAME")
     private String restaurantName;
     // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Size(max = 50)
     @Column(name = "EMAIL")
     private String email;
@@ -69,7 +69,7 @@ public class Restaurants implements Serializable {
     @Size(max = 50)
     @Column(name = "OPENING_HOURS")
     private String openingHours;
-    @Size(max = 10)
+    @Size(max = 255)
     @Column(name = "PRICE")
     private String price;
     @Size(max = 50)
@@ -176,7 +176,6 @@ public class Restaurants implements Serializable {
         return ((Restaurants) obj).getRestaurantName().equals(this.restaurantName);
     }
 
-
     @Override
     public String toString() {
         return "Beans.Restaurants[ restaurantId=" + restaurantId + " ]";
@@ -190,7 +189,6 @@ public class Restaurants implements Serializable {
         this.username = username;
     }
 
-
     public String getEmail() {
         return email;
     }
@@ -199,7 +197,6 @@ public class Restaurants implements Serializable {
         this.email = email;
     }
 
-
     public String getAddress() {
         return address;
     }
@@ -207,7 +204,6 @@ public class Restaurants implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-
 
     public String getPrice() {
         return price;
@@ -231,6 +227,7 @@ public class Restaurants implements Serializable {
 
     public void setContact(String contact) {
         this.contact = contact;
+        
     }
 
     public String getMenu() {
@@ -255,7 +252,6 @@ public class Restaurants implements Serializable {
 
     public void setRating(String rating) {
         this.rating = rating;
-        
     }
     
 }
