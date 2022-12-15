@@ -36,6 +36,7 @@ public class RestaurantsFacadeREST extends AbstractFacade<Restaurants> {
     }
 
     @POST
+    @Path("/create")
     @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(Restaurants entity) {
@@ -43,25 +44,31 @@ public class RestaurantsFacadeREST extends AbstractFacade<Restaurants> {
     }
 
     @PUT
-    @Path("{id}")
+    @Path("/edit/{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, Restaurants entity) {
         super.edit(entity);
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("/remove/{id}")
     public void remove(@PathParam("id") Integer id) {
         super.remove(super.find(id));
     }
 
     @GET
-    @Path("{id}")
+    @Path("/find/{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public Restaurants find(@PathParam("id") Integer id) {
         return super.find(id);
     }
-
+    
+    @GET
+    @Path("/findByRestaurantName/{name}")
+    public Restaurants findByRestaurantName(@PathParam("name") String restaurantName) {
+        return super.findByRestaurantName("Restaurant.findByRestaurantName", "restaurantName", restaurantName);
+    }
+    
     @GET
     @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})

@@ -43,6 +43,15 @@ public abstract class AbstractFacade<T> {
         }
         return null;
     }
+    
+    public T findByRestaurantName(Object namedQuery, Object parameterName, Object name){
+        Query query = getEntityManager().createNamedQuery((String) namedQuery);
+        List<T> results = query.setParameter((String) parameterName, (String) name).getResultList();
+        if(results.size() > 0) {
+            return results.get(0);
+        }
+        return null;
+    }
 
     public List<T> findAll() {
         javax.persistence.criteria.CriteriaQuery cq = getEntityManager().getCriteriaBuilder().createQuery();
