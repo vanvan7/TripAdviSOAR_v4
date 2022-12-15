@@ -7,7 +7,6 @@ package Beans;
 
 import Client.PersistenceClient;
 import Exceptions.DoesNotExistException;
-import Database.MockDatabase;
 import Exceptions.AlreadyExistsException;
 import Models.Restaurants;
 import Models.Users;

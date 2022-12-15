@@ -18,6 +18,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Restaurants {
     
+    private Integer restaurantId;
     private String username;
     private int password;
     private String email;
@@ -81,13 +82,13 @@ public class Restaurants {
        return specialdietlist;
     }
     
-//    public Integer getRatings() {
-//        return ratings;
-//    }
-//    
-//    public ArrayList<Integer> getRatinglist() {
-//        return ratinglist;
-//    }
+    public String getRatings() {
+        return ratings;
+    }
+    
+    public ArrayList<String> getRatinglist() {
+        return ratinglist;
+    }
 
     public String getUsername() {
         return username;
@@ -104,6 +105,11 @@ public class Restaurants {
     public String getDish() {
         return dish;
     }
+    
+    public Integer getRestaurantId() {
+        return restaurantId;
+    }
+
 
     public void setUsername(String username) {
         this.username = username;
@@ -125,11 +131,11 @@ public class Restaurants {
         this.password = password.hashCode();
     }
 
-//    public void setRatings(Integer ratings)  {
-//     this.ratings = ratings;
-//     this.ratinglist.add(ratings);
-//    }
-//    
+    public void setRatings(String ratings)  {
+     this.ratings = ratings;
+     this.ratinglist.add(ratings);
+    }
+    
     public void setAddress(String address) {
         this.address = address;
     }
@@ -138,9 +144,9 @@ public class Restaurants {
         this.openingHours = openingHours;
     }
     
-//    public void setRatinglist (ArrayList<Integer> ratinglist){
-//        this.ratinglist=ratinglist;
-//    }
+    public void setRatinglist (ArrayList<String> ratinglist){
+        this.ratinglist=ratinglist;
+    }
     
     public void setDish(String dish) {
         this.dish = dish;
@@ -170,6 +176,10 @@ public class Restaurants {
         this.specialdietlist = specialdietlist;
         this.specialdiet = specialdietlist.toString().substring(1,specialdietlist.toString().length()-1);
     
+    }
+    
+    public void setRestaurantId(Integer restaurantId) {
+        this.restaurantId = restaurantId;
     }
 }
 

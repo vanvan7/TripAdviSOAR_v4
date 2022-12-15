@@ -7,7 +7,6 @@ package Beans;
 
 import static Beans.RestaurantSenzu.findByRestaurantName;
 import Exceptions.DoesNotExistException;
-import Database.MockDatabase;
 import Models.Restaurants;
 import java.util.ArrayList;
 import Exceptions.NoRestaurantCorrespondingException;

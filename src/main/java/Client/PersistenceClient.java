@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Client;
 
 import Exceptions.AlreadyExistsException;
@@ -37,10 +32,10 @@ public class PersistenceClient {
     private static Client client;
     private static WebTarget target;
     private static PersistenceClient instance;
+//    private static PersistenceRestaurant instance;
     
     private PersistenceClient() {
         PersistenceClient.client = ClientBuilder.newClient();
-        PersistenceClient.client = ClientBuilder.newRestaurant();
     }
    
     
@@ -54,22 +49,8 @@ public class PersistenceClient {
         }
         return instance;
     }
-
-    public void completeShopping(int id) {
-        client.target(USERS_URL + "/completeShopping/" + id).request().get();
-    }
-
-    public void removeFromShoppingCart(int uId, int fId) {
-        client.target(USERS_URL + "/removeFromShoppingCart/" + uId + "/" + fId).request().get();
-    }
-
-    public void addToShoppingCart(int uId, int fId) {
-        client.target(USERS_URL + "/addToShoppingCart/" + uId + "/" + fId).request().get();
-    }
-
-    public List<Foods> getAllFoodsInShoppingCart(int id) {
-        return parseFoodList(client.target(USERS_URL + "/getShoppingCart/" + id).request().get(String.class));
-    }
+    
+    
 
     public Users checkPassword(String username, int password) throws DoesNotExistException {
         Users u = getUserByName(username);
@@ -87,9 +68,10 @@ public class PersistenceClient {
         client.target(USERS_URL + "/create").request().post(Entity.entity(user, "application/xml"));
     }
     
-    public void createRestaurantUser(Restaurant restaurant) {
+    public void createRestaurantUser(Users restaurant) {
         client.target(USERS_URL + "/create").request().post(Entity.entity(restaurant, "application/xml"));
     }
+    
 
     public void updateUser(Users user) {
         client.target(USERS_URL + "/edit/" + user.getUserId()).request().put(Entity.entity(user, "application/xml"));
@@ -103,7 +85,6 @@ public class PersistenceClient {
         return parseUser(client.target(USERS_URL + "/find/" + id).request().get().readEntity(String.class));
     }
     
-
     public Users getUserByName(String username) {
         Users u = parseUser(client.target(USERS_URL + "/findByName/" + username).request().get(String.class));
         return u;
@@ -113,6 +94,7 @@ public class PersistenceClient {
         return parseUserList(client.target(USERS_URL).request().get(String.class));
     }
 
+    
     private List<Users> parseUserList(String xml) {
         List<Users> userList = new ArrayList<>();
         NodeList list = parseDocument(xml).getElementsByTagName("users");
@@ -121,6 +103,7 @@ public class PersistenceClient {
 
             Users user = new Users();
             user.setEmail(e.getElementsByTagName("email").item(0).getTextContent());
+            user.setRestaurantName(e.getElementsByTagName("restaurantname").item(0).getTextContent());
             user.setFirstName(e.getElementsByTagName("firstName").item(0).getTextContent());
             user.setLastName(e.getElementsByTagName("lastName").item(0).getTextContent());
             user.setPassword(Integer.valueOf(e.getElementsByTagName("password").item(0).getTextContent()));
@@ -139,8 +122,8 @@ public class PersistenceClient {
         Element e = (Element) parseDocument(xml).getElementsByTagName("users").item(0);
 
         Users user = new Users();
-        user.setBalance(Double.valueOf(e.getElementsByTagName("balance").item(0).getTextContent()));
         user.setEmail(e.getElementsByTagName("email").item(0).getTextContent());
+        user.setRestaurantName(e.getElementsByTagName("restaurantname").item(0).getTextContent());
         user.setFirstName(e.getElementsByTagName("firstName").item(0).getTextContent());
         user.setLastName(e.getElementsByTagName("lastName").item(0).getTextContent());
         user.setPassword(Integer.valueOf(e.getElementsByTagName("password").item(0).getTextContent()));
@@ -150,65 +133,88 @@ public class PersistenceClient {
         return user;
     }
 
-    public void createFood(Foods food) {
-        client.target(FOODS_URL + "/create").request().post(Entity.entity(food, "application/xml"));
+     
+    public void createRestaurant(Restaurants restaurant) {
+        client.target(RESTAURANT_URL + "/create").request().post(Entity.entity(restaurant, "application/xml"));
     }
 
-    public void updateFood(Foods food) {
-        client.target(FOODS_URL + "/edit/" + food.getFoodId()).request().put(Entity.entity(food, "application/xml"));
+    public void updateRestaurant(Restaurants restaurant) {
+        client.target(RESTAURANT_URL + "/edit/" + restaurant.getRestaurantId()).request().put(Entity.entity(restaurant, "application/xml"));
     }
 
-    public void removeFood(int id) {
-        client.target(FOODS_URL + "/remove/" + id).request().get().readEntity(String.class);
+    public void removeRestaurant(int id) {
+        client.target(RESTAURANT_URL + "/remove/" + id).request().get().readEntity(String.class);
+    }
+    
+    public Restaurants getRestaurantById(int id) {
+        return parseRestaurant(client.target(RESTAURANT_URL + "/find/" + id).request().get().readEntity(String.class));
     }
 
-    public Foods getFoodById(int id) {
-        return parseFood(client.target(FOODS_URL + "/find/" + id).request().get().readEntity(String.class));
-    }
 
-    public Foods getFoodByName(String foodName) throws DoesNotExistException {
-        Foods f = parseFood(client.target(FOODS_URL + "/findByName/" + foodName).request().get(String.class));
+    public Restaurants getFoodByName(String restaurantName) throws DoesNotExistException {
+        Restaurants f = parseRestaurant(client.target(RESTAURANT_URL + "/findByName/" + restaurantName).request().get(String.class));
         if (f != null) {
             return f;
         }
-        throw new DoesNotExistException("Food " + foodName + " does not exist.");
+        throw new DoesNotExistException("Restaurant " + restaurantName + " does not exist.");
     }
 
-    public List<Foods> getAllFoods() {
-        return parseFoodList(client.target(FOODS_URL).request().get(String.class));
+    public List<Restaurants> getAllRestaurants() {
+        return parseRestaurantList(client.target(RESTAURANT_URL).request().get(String.class));
     }
 
-    private List<Foods> parseFoodList(String xml) {
-        List<Foods> foodList = new ArrayList<>();
-        NodeList list = parseDocument(xml).getElementsByTagName("foods");
+    private List<Restaurants> parseRestaurantList(String xml) {
+        List<Restaurants> restaurantList = new ArrayList<>();
+        NodeList list = parseDocument(xml).getElementsByTagName("restaurants");
         for (int i = 0; i < list.getLength(); i++) {
             Element e = (Element) list.item(i);
 
-            Foods food = new Foods();
-            food.setFoodId(Integer.valueOf(e.getElementsByTagName("foodId").item(0).getTextContent()));
-            food.setFoodName(e.getElementsByTagName("foodName").item(0).getTextContent());
-            food.setFoodPrice(Double.valueOf(e.getElementsByTagName("foodPrice").item(0).getTextContent()));
-            food.setIngredients(e.getElementsByTagName("ingredients").item(0).getTextContent());
+            Restaurants restaurant = new Restaurants();
+            restaurant.setEmail(e.getElementsByTagName("email").item(0).getTextContent());
+            restaurant.setRestaurantName(e.getElementsByTagName("restaurantName").item(0).getTextContent());
+            restaurant.setRestaurantOwner(e.getElementsByTagName("restaurantOwner").item(0).getTextContent());
+            restaurant.setPassword(Integer.valueOf(e.getElementsByTagName("password").item(0).getTextContent()));
+            restaurant.setRestaurantId(Integer.valueOf(e.getElementsByTagName("restaurantId").item(0).getTextContent()));
+            restaurant.setUsername(e.getElementsByTagName("username").item(0).getTextContent());     
+            restaurant.setAddress(e.getElementsByTagName("address").item(0).getTextContent());
+            restaurant.setOpeningHours(e.getElementsByTagName("openingHours").item(0).getTextContent());
+            restaurant.setPrice(e.getElementsByTagName("price").item(0).getTextContent());
+            restaurant.setCookingtype(e.getElementsByTagName("cookingtype").item(0).getTextContent());
+            restaurant.setContact(e.getElementsByTagName("contact").item(0).getTextContent());
+            restaurant.setMenu(e.getElementsByTagName("menu").item(0).getTextContent());
+            restaurant.setRatings(e.getElementsByTagName("rating").item(0).getTextContent());
+            restaurant.setSpecialdiet(e.getElementsByTagName("specialdiet").item(0).getTextContent());
 
-            foodList.add(food);
+            restaurantList.add(restaurant);
         }
-        return foodList;
+        return restaurantList;
     }
 
-    private Foods parseFood(String xml) {
+    private Restaurants parseRestaurant(String xml) {
         if (xml.length() == 0) {
             return null;
         }
-        Element e = (Element) parseDocument(xml).getElementsByTagName("foods").item(0);
+        Element e = (Element) parseDocument(xml).getElementsByTagName("restaurants").item(0);
 
-        Foods food = new Foods();
-        food.setFoodId(Integer.valueOf(e.getElementsByTagName("foodId").item(0).getTextContent()));
-        food.setFoodName(e.getElementsByTagName("foodName").item(0).getTextContent());
-        food.setFoodPrice(Double.valueOf(e.getElementsByTagName("foodPrice").item(0).getTextContent()));
-        food.setIngredients(e.getElementsByTagName("ingredients").item(0).getTextContent());
+        Restaurants restaurant = new Restaurants();
+        restaurant.setEmail(e.getElementsByTagName("email").item(0).getTextContent());
+        restaurant.setRestaurantName(e.getElementsByTagName("restaurantName").item(0).getTextContent());
+        restaurant.setRestaurantOwner(e.getElementsByTagName("restaurantOwner").item(0).getTextContent());
+        restaurant.setPassword(Integer.valueOf(e.getElementsByTagName("password").item(0).getTextContent()));
+        restaurant.setRestaurantId(Integer.valueOf(e.getElementsByTagName("restaurantId").item(0).getTextContent()));
+        restaurant.setUsername(e.getElementsByTagName("username").item(0).getTextContent());     
+        restaurant.setAddress(e.getElementsByTagName("address").item(0).getTextContent());
+        restaurant.setOpeningHours(e.getElementsByTagName("openingHours").item(0).getTextContent());
+        restaurant.setPrice(e.getElementsByTagName("price").item(0).getTextContent());
+        restaurant.setCookingtype(e.getElementsByTagName("cookingtype").item(0).getTextContent());
+        restaurant.setContact(e.getElementsByTagName("contact").item(0).getTextContent());
+        restaurant.setMenu(e.getElementsByTagName("menu").item(0).getTextContent());
+        restaurant.setRatings(e.getElementsByTagName("rating").item(0).getTextContent());
+        restaurant.setSpecialdiet(e.getElementsByTagName("specialdiet").item(0).getTextContent());
 
-        return food;
+        return restaurant;
     }
+    
 
     private Document parseDocument(String xml) {
         try {

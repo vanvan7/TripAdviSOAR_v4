@@ -5,7 +5,6 @@
  */
 package Models;
 
-import Database.MockDatabase;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
 
@@ -92,26 +91,26 @@ public class Users {
     }
 
     //added on november 8th
-    @Override
-    public String toString() {
-        String S = "";
-        if (restaurantName == null) {
-            S = "Username: " + this.username
-                    + "\nFirst name: " + this.firstName
-                    + "\nLast name: " + this.lastName
-                    + "\nEmail: " + this.email;
-
-        } else {
-            S = "Username: " + this.username
-                    + "\nRestaurant Name: " + this.restaurantName
-                    + "\nEmail: " + this.email;
-
-            for (int r = 0; r < MockDatabase.restaurants.size(); r++) {
-                if (restaurantName == MockDatabase.restaurants.get(r).getRestaurantName()) {
-                    S = S + MockDatabase.restaurants.get(r).toString();
-                }
-            }
-        }
-        return S;
-    }
+//    @Override
+//    public String toString() {
+//        String S = "";
+//        if (restaurantName == null) {
+//            S = "Username: " + this.username
+//                    + "\nFirst name: " + this.firstName
+//                    + "\nLast name: " + this.lastName
+//                    + "\nEmail: " + this.email;
+//
+//        } else {
+//            S = "Username: " + this.username
+//                    + "\nRestaurant Name: " + this.restaurantName
+//                    + "\nEmail: " + this.email;
+//
+//            for (int r = 0; r < MockDatabase.restaurants.size(); r++) {
+//                if (restaurantName == MockDatabase.restaurants.get(r).getRestaurantName()) {
+//                    S = S + MockDatabase.restaurants.get(r).toString();
+//                }
+//            }
+//        }
+//        return S;
+//    }
 }
