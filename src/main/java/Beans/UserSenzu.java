@@ -5,11 +5,9 @@
  */
 package Beans;
 
-import Exceptions.DoesNotExistException;
 import Exceptions.AlreadyExistsException;
-import Database.MockDatabase;
-import Models.User;
-import java.util.ArrayList;
+import Models.Users;
+import Client.PersistenceClient;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -23,71 +21,49 @@ import java.io.Serializable;
 public class UserSenzu implements Serializable {
 
     private String username = "";
-    private String firstname = "";
-    private String lastname = "";
+    private String firstName = "";
+    private String lastName = "";
     private String email = "";
     private String password = "";
     
     
     public String createAUser() {
         try {
-            if (!emailExists() && !usernameExists()) {
-                MockDatabase.getInstance().addAUser(new User(username, firstname, lastname, email, password));
-            } //add to mock databese if User created
+            boolean a = !PersistenceClient.getInstance().emailExists(email);
+            boolean b = PersistenceClient.getInstance().getUserByName(username) == null;
+            if (a && b) {
+                Users newUser = new Users();
+                newUser.setUsername(username);
+                newUser.setFirstName(firstName);
+                newUser.setLastName(lastName);
+                newUser.setEmail(email);
+                newUser.setPassword(password.hashCode());
+                PersistenceClient.getInstance().createUser(newUser);
+            }  
         return"/MainPage/LoginPage.xhtml?faces-redirect=true";
-            
-        } catch (AlreadyExistsException | DoesNotExistException ex) {
+        } catch (AlreadyExistsException ex) {
             System.out.println(ex.getMessage());
         }
         // empty values
         this.email = "";
         this.username = "";
-        this.firstname = "";
-        this.lastname = "";
+        this.firstName = "";
+        this.lastName = "";
         this.password = "";
        return "/MainPage/LoginPage.xhtml?faces-redirect=true";
     }    
-
-
-    protected static User findByUsername(String username) throws DoesNotExistException {
-        for (User user : MockDatabase.getInstance().getUsers()) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        throw new DoesNotExistException("The user " + username + " does not exist.");
-    }
-
-    
-    private boolean emailExists() throws AlreadyExistsException {
-        for (User user : MockDatabase.getInstance().getUsers()) {
-            if (user.getEmail().equals(email)) {
-                throw new AlreadyExistsException("The email " + email + " already in use.");
-            }
-        }
-        return false;
-    }
-
-    private boolean usernameExists() throws DoesNotExistException {
-        for (User user : MockDatabase.getInstance().getUsers()) {
-            if (user.getUsername().equals(username)) {
-                return true;
-            }
-        }
-        return false;
-        
-    }
+   
     
     public String getEmail() {
         return email;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
     public String getPassword() {
@@ -102,17 +78,18 @@ public class UserSenzu implements Serializable {
         this.email = email;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
+    
 
     public void setUsername(String username) {
         this.username = username;

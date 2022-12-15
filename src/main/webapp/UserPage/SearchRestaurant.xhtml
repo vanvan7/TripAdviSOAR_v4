@@ -87,13 +87,13 @@
         <h:form>
             <h3>
             <h:outputText value="Write a Restaurant name : " style="font-size: 30px"/>
-            <h:inputText value="#{loginSenzu.restaurantname}"/>
+            <h:inputText value="#{loginSenzu.restaurantName}"/>
             <h:commandButton value="Search" action="#{loginSenzu.restaurantLogsIn()}"/>
             <br/>
             <br/>
                 <h:panelGrid columns = "2" style= "width:60%;margin:x auto;">
                     <h:outputText value="Current restaurant name: "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.restaurantname}"/>
+                    <h:outputText value="#{loginSenzu.currentRestaurant.restaurantName}"/>
                     <h:outputText value="Contact : "/>
                     <h:outputText value="#{loginSenzu.currentRestaurant.contact}"/> 
                     <h:outputText value="Email : "/>
@@ -103,11 +103,11 @@
                     <h:outputText value="Cooking Type : "/>
                     <h:outputText value="#{loginSenzu.currentRestaurant.cookingtype}"/> 
                     <h:outputText value="Owner : "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.owner}"/> 
+                    <h:outputText value="#{loginSenzu.currentRestaurant.restaurantOwner}"/> 
                     <h:outputText value="Opening hours : "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.datetime}"/> 
+                    <h:outputText value="#{loginSenzu.currentRestaurant.openingHours}"/> 
                     <h:outputText value="Current restaurant name: "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.restaurantname}"/> 
+                    <h:outputText value="#{loginSenzu.currentRestaurant.restaurantName}"/> 
                     <h:outputText value="Price range : "/>
                     <h:outputText value="#{loginSenzu.currentRestaurant.price}"/> 
                     <h:outputText value="Menu : "/>

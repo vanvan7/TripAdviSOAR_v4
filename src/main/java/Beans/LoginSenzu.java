@@ -6,13 +6,12 @@
 package Beans;
 
 import Exceptions.DoesNotExistException;
-import Models.Restaurant;
-import Models.User;
-import static Beans.UserSenzu.findByUsername;
-import static Beans.RestaurantSenzu.findByRestaurantName;
+import Models.Restaurants;
+import Models.Users;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import Client.PersistenceClient;
 
 /**
  *
@@ -24,15 +23,15 @@ public class LoginSenzu implements Serializable {
 
     private String username = "";
     private String password = "";
-    private String restaurantname = "";
-    private User currentUser;
-    private Restaurant currentRestaurant;
+    private String restaurantName = "";
+    private Users currentUser;
+    private Restaurants currentRestaurant;
 
     public String userLogsIn() {
         try {
-            User user = findByUsername(username);
-            if (user != null && user.isPasswordCorrect(password)) {
-                currentUser = user;
+            Users u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
+            if (u != null) {
+                currentUser = u;
                 return "/UserPage/UserMainPage.xhtml?faces-redirect=true";
             }             
         } catch (DoesNotExistException ex) {
@@ -40,26 +39,26 @@ public class LoginSenzu implements Serializable {
         }
         return "/MainPage/LoginPage.xhtml?faces-redirect=true";
     }
-    public void restaurantLogsIn(){
-        try {
-            Restaurant restaurant = findByRestaurantName (restaurantname);
-            if (restaurant != null){
-                currentRestaurant = restaurant;
-                System.out.println(this.getCurrentRestaurant().toString());
-        
-            }
-        } catch (DoesNotExistException ex) {
-            System.out.println(ex.getMessage());
-        }
+//    public String restaurantLogsIn(){
+//        try {
+//            Restaurants r = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
+//            if (r != null){
+//                currentRestaurant = r;
+//                System.out.println(this.getCurrentRestaurant().toString());
+//        
+//            }
+//        } catch (DoesNotExistException ex) {
+//            System.out.println(ex.getMessage());
+//        }
 
-    }
+//    }
     
     public String RestaurantLogIn() {
         try {
-            User user = findByUsername(username);
-            if (user != null && user.isPasswordCorrect(password)) {
-                currentUser = user;
-                currentRestaurant = RestaurantSenzu.findByRestaurantName(user.getRestaurantname());
+            Users u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
+            if (u != null) {
+                currentUser = u;
+                currentRestaurant = RestaurantSenzu.findByRestaurantName(u.getRestaurantName());
                 return "/RestaurantPage/RestaurantMainPage.xhtml?faces-redirect=true";
             }          
         } catch (DoesNotExistException ex) {
@@ -67,17 +66,19 @@ public class LoginSenzu implements Serializable {
         }
         return "LoginPageRestaurant.xhtml?faces-redirect=true";
     }
+    
+    
 
     public String userLogsout() {
         currentUser = null;
         return "/MainPage/MainPage.xhtml?faces-redirect=true";
     }
 
-    public User getCurrentUser() {
+    public Users getCurrentUser() {
         return currentUser;
     }
     
-    public Restaurant getCurrentRestaurant(){
+    public Restaurants getCurrentRestaurant(){
         return currentRestaurant;
     }
 
@@ -89,14 +90,14 @@ public class LoginSenzu implements Serializable {
         return username;
     }
     
-     public String getRestaurantname() {
-        return restaurantname;
+     public String getRestaurantName() {
+        return restaurantName;
     }
-    public void setCurrentUser(User currentUser) {
+    public void setCurrentUser(Users currentUser) {
         this.currentUser = currentUser;
     }
     
-    public void setCurrentRestaurant(Restaurant currentRestaurant) {
+    public void setCurrentRestaurant(Restaurants currentRestaurant) {
         this.currentRestaurant = currentRestaurant;
     }
 
@@ -108,8 +109,8 @@ public class LoginSenzu implements Serializable {
         this.username = username;
     }
     
-    public void setRestaurantname(String restaurantname){
-        this.restaurantname = restaurantname;
+    public void setRestaurantName(String restaurantName){
+        this.restaurantName = restaurantName;
     }
     
 }

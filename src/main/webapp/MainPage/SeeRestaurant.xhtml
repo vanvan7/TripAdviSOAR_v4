@@ -94,7 +94,7 @@
                     <th>Address</th>
                     <th>Owner</th>
                     <th>Opening Hours</th>
-                    <th>Price ($-$$$)</th>
+                    <th>Price(€-€€€)</th>
                     <th>Cookingtype</th>
                     <th>Contact</th>
                     <th>Menu</th>
@@ -103,10 +103,10 @@
                 </tr>
                 <ui:repeat value="#{restaurantSenzu.restaurant}" var="item">                                                    
                     <tr>
-                        <td><h:outputText value="#{item.restaurantname}" /></td>
+                        <td><h:outputText value="#{item.restaurantName}" /></td>
                         <td><h:outputText value="#{item.address}" /></td>
-                        <td><h:outputText value="#{item.owner}" /></td>
-                        <td><h:outputText value="#{item.datetime}" /></td>
+                        <td><h:outputText value="#{item.restaurantOwner}" /></td>
+                        <td><h:outputText value="#{item.openingHours}" /></td>
                         <td><h:outputText value="#{item.price}" /></td>
                         <td><h:outputText value="#{item.cookingtype}" /></td>
                         <td><h:outputText value="#{item.contact}" /></td>
