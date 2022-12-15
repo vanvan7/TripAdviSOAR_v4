@@ -25,6 +25,7 @@ public class UserSenzu implements Serializable {
     private String lastName = "";
     private String email = "";
     private String password = "";
+     private String restaurantName = "";
     
     
     public String createAUser() {
@@ -37,6 +38,7 @@ public class UserSenzu implements Serializable {
                 newUser.setFirstName(firstName);
                 newUser.setLastName(lastName);
                 newUser.setEmail(email);
+                newUser.setRestaurantName(restaurantName);
                 newUser.setPassword(password.hashCode());
                 PersistenceClient.getInstance().createUser(newUser);
             }  

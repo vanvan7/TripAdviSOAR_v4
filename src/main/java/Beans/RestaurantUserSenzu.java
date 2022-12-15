@@ -92,33 +92,33 @@ public class RestaurantUserSenzu implements Serializable {
         this.specialdiet = "";
         return "/MainPage/LoginPageRestaurant.xhtml?faces-redirect=true";
     }
+//
+//    protected static Users findByUsername(String username) throws DoesNotExistException {
+//        for (Users user : MockDatabase.getInstance().getUsers()) {
+//            if (user.getUsername().equals(username)) {
+//                return user;
+//            }
+//        }
+//        throw new DoesNotExistException("The user " + username + " does not exist.");
+//    }
 
-    protected static Users findByUsername(String username) throws DoesNotExistException {
-        for (Users user : MockDatabase.getInstance().getUsers()) {
-            if (user.getUsername().equals(username)) {
-                return user;
-            }
-        }
-        throw new DoesNotExistException("The user " + username + " does not exist.");
-    }
-
-    protected boolean emailExists() throws AlreadyExistsException {
-        for (Users user : MockDatabase.getInstance().getUsers()) {
-            if (user.getEmail().equals(email)) {
-                throw new AlreadyExistsException("The email " + email + " already in use.");
-            }
-        }
-        return false;
-    }
-
-    protected boolean usernameExists() throws DoesNotExistException {
-        for (Users user : MockDatabase.getInstance().getUsers()) {
-            if (user.getUsername().equals(username)) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    protected boolean emailExists() throws AlreadyExistsException {
+//        for (Users user : MockDatabase.getInstance().getUsers()) {
+//            if (user.getEmail().equals(email)) {
+//                throw new AlreadyExistsException("The email " + email + " already in use.");
+//            }
+//        }
+//        return false;
+//    }
+//
+//    protected boolean usernameExists() throws DoesNotExistException {
+//        for (Users user : MockDatabase.getInstance().getUsers()) {
+//            if (user.getUsername().equals(username)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     //GET
     public String getEmail() {

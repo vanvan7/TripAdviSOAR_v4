@@ -5,7 +5,8 @@
  */
 package Beans;
 
-import static Beans.RestaurantSenzu.findByRestaurantName;
+//import static Beans.RestaurantSenzu.findByRestaurantName;
+import Client.PersistenceClient;
 import Exceptions.DoesNotExistException;
 import Models.Restaurants;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import Exceptions.NoRestaurantCorrespondingException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  *
@@ -35,21 +37,21 @@ public class RestaurantSenzu implements Serializable {
     private ArrayList<Integer> ratinglist;
     
 
-    public static Restaurants findByRestaurantName(String restaurantName) throws DoesNotExistException {
-        for (Restaurants restaurant : MockDatabase.getInstance().getRestaurant()) {
-            if (restaurant.getRestaurantName().equals(restaurantName)) {
-                return restaurant;
-            }    
-        }
-        throw new DoesNotExistException("The restaurant " + restaurantName + " does not exist.");
-        
-     }
-    
-    
-    public ArrayList<Restaurants> getRestaurant() {
-        return MockDatabase.getInstance().getRestaurant();
-       
-    }
+//    public static Restaurants findByRestaurantName(String restaurantName) throws DoesNotExistException {
+//        for (Restaurants restaurant : MockDatabase.getInstance().getRestaurant()) {
+//            if (restaurant.getRestaurantName().equals(restaurantName)) {
+//                return restaurant;
+//            }    
+//        }
+//        throw new DoesNotExistException("The restaurant " + restaurantName + " does not exist.");
+//        
+//     }
+//    
+//    
+//    public ArrayList<Restaurants> getRestaurant() {
+//        return MockDatabase.getInstance().getRestaurant();
+//       
+//    }
     
     public String getRestaurantName() {
         return restaurantName;
@@ -107,5 +109,9 @@ public class RestaurantSenzu implements Serializable {
     
     public ArrayList<Integer> getRatinglist() {
         return ratinglist;
+    }
+    
+    public List<Restaurants> getRestaurants(){
+        return PersistenceClient.getInstance().getAllRestaurants();
     }
 }

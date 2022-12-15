@@ -26,8 +26,11 @@ import org.xml.sax.SAXException;
  * @author Users
  */
 public class PersistenceClient {
-    private static final String RESTAURANT_URL = "http://localhost:8080/TripAdviSOARService_v4/resources/models.restaurants";
-    private static final String USERS_URL = "http://localhost:8080/TripAdviSOARService_v4/resources/models.users";
+   //    private static final String RESTAURANTS_URL = "http://localhost:8080/TripAdviSOARService_v4/resources/models.restaurants";
+//    private static final String USERS_URL = "http://localhost:8080/TripAdviSOARService_v4/resources/models.users";
+    private static final String RESTAURANTS_URL = "http://localhost:8080/Tripv4/resources/models.restaurants";
+    private static final String USERS_URL = "http://localhost:8080/Tripv4/resources/models.users";
+
 
     private static Client client;
     private static WebTarget target;
@@ -123,7 +126,7 @@ public class PersistenceClient {
 
         Users user = new Users();
         user.setEmail(e.getElementsByTagName("email").item(0).getTextContent());
-        user.setRestaurantName(e.getElementsByTagName("restaurantname").item(0).getTextContent());
+        user.setRestaurantName(e.getElementsByTagName("restaurantName").item(0).getTextContent());
         user.setFirstName(e.getElementsByTagName("firstName").item(0).getTextContent());
         user.setLastName(e.getElementsByTagName("lastName").item(0).getTextContent());
         user.setPassword(Integer.valueOf(e.getElementsByTagName("password").item(0).getTextContent()));
@@ -135,24 +138,24 @@ public class PersistenceClient {
 
      
     public void createRestaurant(Restaurants restaurant) {
-        client.target(RESTAURANT_URL + "/create").request().post(Entity.entity(restaurant, "application/xml"));
+        client.target(RESTAURANTS_URL + "/create").request().post(Entity.entity(restaurant, "application/xml"));
     }
 
     public void updateRestaurant(Restaurants restaurant) {
-        client.target(RESTAURANT_URL + "/edit/" + restaurant.getRestaurantId()).request().put(Entity.entity(restaurant, "application/xml"));
+        client.target(RESTAURANTS_URL + "/edit/" + restaurant.getRestaurantId()).request().put(Entity.entity(restaurant, "application/xml"));
     }
 
     public void removeRestaurant(int id) {
-        client.target(RESTAURANT_URL + "/remove/" + id).request().get().readEntity(String.class);
+        client.target(RESTAURANTS_URL + "/remove/" + id).request().get().readEntity(String.class);
     }
     
     public Restaurants getRestaurantById(int id) {
-        return parseRestaurant(client.target(RESTAURANT_URL + "/find/" + id).request().get().readEntity(String.class));
+        return parseRestaurant(client.target(RESTAURANTS_URL + "/find/" + id).request().get().readEntity(String.class));
     }
 
 
     public Restaurants getFoodByName(String restaurantName) throws DoesNotExistException {
-        Restaurants f = parseRestaurant(client.target(RESTAURANT_URL + "/findByName/" + restaurantName).request().get(String.class));
+        Restaurants f = parseRestaurant(client.target(RESTAURANTS_URL + "/findByName/" + restaurantName).request().get(String.class));
         if (f != null) {
             return f;
         }
@@ -160,7 +163,7 @@ public class PersistenceClient {
     }
 
     public List<Restaurants> getAllRestaurants() {
-        return parseRestaurantList(client.target(RESTAURANT_URL).request().get(String.class));
+        return parseRestaurantList(client.target(RESTAURANTS_URL).request().get(String.class));
     }
 
     private List<Restaurants> parseRestaurantList(String xml) {

@@ -58,7 +58,7 @@ public class LoginSenzu implements Serializable {
             Users u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
             if (u != null) {
                 currentUser = u;
-                currentRestaurant = RestaurantSenzu.findByRestaurantName(u.getRestaurantName());
+//                currentRestaurant = RestaurantSenzu.findByRestaurantName(u.getRestaurantName());
                 return "/RestaurantPage/RestaurantMainPage.xhtml?faces-redirect=true";
             }          
         } catch (DoesNotExistException ex) {

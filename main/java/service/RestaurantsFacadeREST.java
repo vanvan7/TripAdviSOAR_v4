@@ -66,7 +66,7 @@ public class RestaurantsFacadeREST extends AbstractFacade<Restaurants> {
     @GET
     @Path("/findByRestaurantName/{name}")
     public Restaurants findByRestaurantName(@PathParam("name") String restaurantName) {
-        return super.findByRestaurantName("Restaurant.findByRestaurantName", "restaurantName", restaurantName);
+        return super.findByRestaurantName("Restaurants.findByRestaurantName", "restaurantName", restaurantName);
     }
     
     @GET
