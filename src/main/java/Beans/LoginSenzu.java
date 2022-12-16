@@ -32,13 +32,19 @@ public class LoginSenzu implements Serializable {
             Users u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
             if (u != null) {
                 currentUser = u;
-                return "/UserPage/UserMainPage.xhtml?faces-redirect=true";
+                if (currentUser.getFirstName().length() < 1){
+                    return "/MainPage/LoginPage.xhtml?faces-redirect=true";
+            }
+                else{
+                    return "/UserPage/UserMainPage.xhtml?faces-redirect=true";
+                }
             }             
         } catch (DoesNotExistException ex) {
             System.out.println(ex.getMessage());
         }
         return "/MainPage/LoginPage.xhtml?faces-redirect=true";
     }
+    
 //    public String restaurantLogsIn(){
 //        try {
 //            Restaurants r = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
@@ -58,8 +64,12 @@ public class LoginSenzu implements Serializable {
             Users u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
             if (u != null) {
                 currentUser = u;
-//                currentRestaurant = RestaurantSenzu.findByRestaurantName(u.getRestaurantName());
-                return "/RestaurantPage/RestaurantMainPage.xhtml?faces-redirect=true";
+                if (currentUser.getRestaurantName().length() < 1){
+                    return "/MainPage/LoginPageRestaurantxhtml?faces-redirect=true";
+                }
+                else{
+                    return "/RestaurantPage/RestaurantMainPage.xhtml?faces-redirect=true";
+                }
             }          
         } catch (DoesNotExistException ex) {
             System.out.println(ex.getMessage());
