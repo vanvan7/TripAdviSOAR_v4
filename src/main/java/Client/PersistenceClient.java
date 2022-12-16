@@ -63,6 +63,15 @@ public class PersistenceClient {
             }
         throw new DoesNotExistException("User " + username + " does not exist.");
     }
+    
+    public Restaurants checkExistingRestaurant (String restaurantName) throws DoesNotExistException{
+        Restaurants r = getRestaurantByName(restaurantName);
+        if (r != null)
+            if (r.getRestaurantName().equals(restaurantName)){
+                return r;
+            }
+        throw new DoesNotExistException("Restaurant " + restaurantName + " does not exist.");
+    }
 
     public boolean emailExists(String email) throws AlreadyExistsException {
         return client.target(USERS_URL + "/emailExists/" + email).request().get().readEntity(Boolean.class);
@@ -156,13 +165,14 @@ public class PersistenceClient {
     }
 
 
-    public Restaurants getFoodByName(String restaurantName) throws DoesNotExistException {
-        Restaurants f = parseRestaurant(client.target(RESTAURANTS_URL + "/findByName/" + restaurantName).request().get(String.class));
-        if (f != null) {
-            return f;
+    public Restaurants getRestaurantByName(String restaurantName) throws DoesNotExistException {
+        Restaurants r = parseRestaurant(client.target(RESTAURANTS_URL + "/findByRestaurantName/" + restaurantName).request().get(String.class));
+        if (r != null) {
+            return r;
         }
         throw new DoesNotExistException("Restaurant " + restaurantName + " does not exist.");
     }
+ 
 
     public List<Restaurants> getAllRestaurants() {
         return parseRestaurantList(client.target(RESTAURANTS_URL).request().get(String.class));

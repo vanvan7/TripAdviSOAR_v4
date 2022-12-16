@@ -32,33 +32,25 @@ public class LoginSenzu implements Serializable {
             Users u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
             if (u != null) {
                 currentUser = u;
-                if (currentUser.getFirstName().length() < 1){
-                    return "/MainPage/LoginPage.xhtml?faces-redirect=true";
-            }
-                else{
-                    return "/UserPage/UserMainPage.xhtml?faces-redirect=true";
-                }
+                return "/UserPage/UserMainPage.xhtml?faces-redirect=true";
             }             
         } catch (DoesNotExistException ex) {
             System.out.println(ex.getMessage());
         }
         return "/MainPage/LoginPage.xhtml?faces-redirect=true";
     }
-    
 //    public String restaurantLogsIn(){
 //        try {
-//            Restaurant r = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
-//            if (restaurantName != null){
-//                currentUser=r;
+//            Restaurants r = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
+//            if (r != null){
 //                currentRestaurant = r;
-//                return "/RestaurantPage/RestaurantMainPage.xhtml?faces-redirect=true";
+//                System.out.println(this.getCurrentRestaurant().toString());
 //        
 //            }
 //        } catch (DoesNotExistException ex) {
 //            System.out.println(ex.getMessage());
 //        }
-//        return "/MainPage/LoginPage.xhtml?faces-redirect=true";;
-//
+
 //    }
     
     public String RestaurantLogIn() {
@@ -66,12 +58,8 @@ public class LoginSenzu implements Serializable {
             Users u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
             if (u != null) {
                 currentUser = u;
-                if (currentUser.getRestaurantName().length() < 1){
-                    return "/MainPage/LoginPageRestaurantxhtml?faces-redirect=true";
-                }
-                else{
-                    return "/RestaurantPage/RestaurantMainPage.xhtml?faces-redirect=true";
-                }
+//                currentRestaurant = RestaurantSenzu.findByRestaurantName(u.getRestaurantName());
+                return "/RestaurantPage/RestaurantMainPage.xhtml?faces-redirect=true";
             }          
         } catch (DoesNotExistException ex) {
             System.out.println(ex.getMessage());
