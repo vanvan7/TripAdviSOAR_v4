@@ -8,6 +8,7 @@ package Beans;
 import Exceptions.DoesNotExistException;
 import Models.Restaurants;
 import Models.Users;
+import Beans.RestaurantSenzu;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -29,38 +30,57 @@ public class LoginSenzu implements Serializable {
 
     public String userLogsIn() {
         try {
-            Users u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
-            if (u != null) {
-                currentUser = u;
-                return "/UserPage/UserMainPage.xhtml?faces-redirect=true";
-            }             
+            if (username.length() == 0){
+                return "/MainPage/LoginPage.xhtml?faces-redirect=true";
+            }
+            else{
+                Users u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
+                if (u != null) {
+                    currentUser = u;
+                    if (currentUser.getFirstName().length() < 1){
+                        return "/MainPage/LoginPage.xhtml?faces-redirect=true"; 
+                    }
+                    else{
+                        return "/UserPage/UserMainPage.xhtml?faces-redirect=true";
+                    }   
+                }  
+            }
+                       
         } catch (DoesNotExistException ex) {
             System.out.println(ex.getMessage());
         }
         return "/MainPage/LoginPage.xhtml?faces-redirect=true";
     }
-//    public String restaurantLogsIn(){
-//        try {
-//            Restaurants r = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
-//            if (r != null){
-//                currentRestaurant = r;
-//                System.out.println(this.getCurrentRestaurant().toString());
-//        
-//            }
-//        } catch (DoesNotExistException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-
-//    }
+    public void RestaurantLogged(){
+        try {
+            Restaurants r = PersistenceClient.getInstance().checkExistingRestaurant(currentUser.getRestaurantName());
+            if (r != null){
+                currentRestaurant = r;
+            }
+        } catch (DoesNotExistException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     
     public String RestaurantLogIn() {
         try {
-            Users u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
-            if (u != null) {
-                currentUser = u;
-//                currentRestaurant = RestaurantSenzu.findByRestaurantName(u.getRestaurantName());
-                return "/RestaurantPage/RestaurantMainPage.xhtml?faces-redirect=true";
-            }          
+            if (username.length() == 0){
+                return "/MainPage/LoginPageRestaurant.xhtml?faces-redirect=true";
+            }
+            else{
+                Users u = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
+                if (u != null) {
+                    currentUser = u;
+                    if (currentUser.getRestaurantName() == ""){
+                        return "/LoginPageRestaurant.xhtml?faces-redirect=true";
+                    }
+                    else{
+                        RestaurantLogged();
+                        return "/RestaurantPage/RestaurantMainPage.xhtml?faces-redirect=true";
+                    }
+
+                }
+            }
         } catch (DoesNotExistException ex) {
             System.out.println(ex.getMessage());
         }

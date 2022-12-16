@@ -96,7 +96,10 @@
         <h:form>
             <h3>
                 <h:panelGrid columns="1" style="width:80%;margin:0px auto;"> 
-                    <br/>        
+                    <br/>
+                    <h2>Welcome to our website</h2>
+                     <h:outputText value="#{loginSenzu.currentUser.username}" style="font-size:30px"/>
+                     <br/>
                     <h:commandButton class="btn btn-primary" value="Log out" action="#{loginSenzu.userLogsout()}"/>
                 </h:panelGrid>
             </h3>

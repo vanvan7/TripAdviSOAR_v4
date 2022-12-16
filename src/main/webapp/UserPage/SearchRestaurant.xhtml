@@ -87,47 +87,46 @@
         <h:form>
             <h3>
             <h:outputText value="Write a Restaurant name : " style="font-size: 30px"/>
-            <h:inputText value="#{loginSenzu.restaurantName}"/>
-            <h:commandButton value="Search" action="#{loginSenzu.restaurantLogsIn()}"/>
+            <h:inputText value="#{restaurantSenzu.restaurantName}"/>
+            <h:commandButton value="Search" action="#{restaurantSenzu.SearchRestaurant()}"/>
             <br/>
             <br/>
                 <h:panelGrid columns = "2" style= "width:60%;margin:x auto;">
                     <h:outputText value="Current restaurant name: "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.restaurantName}"/>
+                    <h:outputText value="#{restaurantSenzu.currentRestaurant.restaurantName}"/>
                     <h:outputText value="Contact : "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.contact}"/> 
+                    <h:outputText value="#{restaurantSenzu.currentRestaurant.contact}"/> 
                     <h:outputText value="Email : "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.email}"/> 
+                    <h:outputText value="#{restaurantSenzu.currentRestaurant.email}"/> 
                     <h:outputText value="Address : "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.address}"/> 
+                    <h:outputText value="#{restaurantSenzu.currentRestaurant.address}"/> 
                     <h:outputText value="Cooking Type : "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.cookingtype}"/> 
+                    <h:outputText value="#{restaurantSenzu.currentRestaurant.cookingtype}"/> 
                     <h:outputText value="Owner : "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.restaurantOwner}"/> 
+                    <h:outputText value="#{restaurantSenzu.currentRestaurant.restaurantOwner}"/> 
                     <h:outputText value="Opening hours : "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.openingHours}"/> 
+                    <h:outputText value="#{restaurantSenzu.currentRestaurant.openingHours}"/> 
                     <h:outputText value="Current restaurant name: "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.restaurantName}"/> 
+                    <h:outputText value="#{restaurantSenzu.currentRestaurant.restaurantName}"/> 
                     <h:outputText value="Price range : "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.price}"/> 
+                    <h:outputText value="#{restaurantSenzu.currentRestaurant.price}"/> 
                     <h:outputText value="Menu : "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.menu}"/> 
+                    <h:outputText value="#{restaurantSenzu.currentRestaurant.menu}"/> 
                     <h:outputText value="Special diet : "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.specialdiet}"/>
+                    <h:outputText value="#{restaurantSenzu.currentRestaurant.specialdiet}"/>
                     <h:outputText value="Ratings : "/>
-                    <h:outputText value="#{loginSenzu.currentRestaurant.ratinglist}"/> 
+                    <h:outputText value="#{restaurantSenzu.currentRestaurant.rating}"/> 
                 </h:panelGrid>
             <br/>
-            <h:commandButton class="btn btn-primary" value="Log out" action="#{loginSenzu.userLogsout()}"/>
+            <h:commandButton class="btn btn-primary" value="Log out" action="#{restaurantSenzu.userLogsout()}"/>
             <br/>
             <br/>
             <p:growl id="messages" showDetail="true"/>
             <h3 class="mt-0" style="width:100%; font_size:30px; color: whitesmoke;font: bold;">Rate the Restaurant from 1 to 5 !</h3>
-            <p:rating value="#{restaurantSenzu.ratings}" style="width:100%;margin:x_auto">
-                <!--<p:ajax event="rate" listener ="#{restaurantSenzu.ratings}" update="messages"/> -->
+            <p:rating value="#{restaurantSenzu.ratingSubmit}" style="width:100%;margin:x_auto">
             </p:rating>
             <br/>
-            <p:commandButton value="Submit" action="#{loginSenzu.currentRestaurant.setRatings(restaurantSenzu.ratings)}"/>
+            <p:commandButton value="Submit" action="#{restaurantSenzu.addRating()}"/>
             <p:spacer />
             <br/>
         </h3>

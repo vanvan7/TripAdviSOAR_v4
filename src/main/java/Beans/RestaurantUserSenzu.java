@@ -40,6 +40,7 @@ public class RestaurantUserSenzu implements Serializable {
     private String dish = "";
     private String menu;
     private String specialdiet;
+    private String rating;
     private ArrayList<String> specialdietlist;
     //-----------------------------------------------------added
 
@@ -54,11 +55,11 @@ public class RestaurantUserSenzu implements Serializable {
                 newUser.setPassword(password.hashCode());
                 newUser.setEmail(email);
                 newUser.setRestaurantName(restaurantName);
+                newUser.setFirstName(firstName);
+                newUser.setLastName(lastName);
                 newRestaurant.setUsername(username);
                 newRestaurant.setPassword(password.hashCode());
                 newRestaurant.setEmail(email);
-                newUser.setFirstName(firstName);
-                newUser.setLastName(lastName);
                 newRestaurant.setRestaurantName(restaurantName);
                 newRestaurant.setRestaurantOwner(restaurantOwner);
                 newRestaurant.setAddress(address);
@@ -68,6 +69,7 @@ public class RestaurantUserSenzu implements Serializable {
                 newRestaurant.setContact(contact);
                 newRestaurant.setMenu(menu);  
                 newRestaurant.setSpecialdiet(specialdiet);
+                newRestaurant.setRating("");
                 PersistenceClient.getInstance().createUser(newUser);
                 PersistenceClient.getInstance().createRestaurant(newRestaurant);
                 
@@ -90,35 +92,9 @@ public class RestaurantUserSenzu implements Serializable {
         this.dish = "";
         this.menu = "";
         this.specialdiet = "";
+        this.rating = "";
         return "/MainPage/LoginPageRestaurant.xhtml?faces-redirect=true";
     }
-//
-//    protected static Users findByUsername(String username) throws DoesNotExistException {
-//        for (Users user : MockDatabase.getInstance().getUsers()) {
-//            if (user.getUsername().equals(username)) {
-//                return user;
-//            }
-//        }
-//        throw new DoesNotExistException("The user " + username + " does not exist.");
-//    }
-
-//    protected boolean emailExists() throws AlreadyExistsException {
-//        for (Users user : MockDatabase.getInstance().getUsers()) {
-//            if (user.getEmail().equals(email)) {
-//                throw new AlreadyExistsException("The email " + email + " already in use.");
-//            }
-//        }
-//        return false;
-//    }
-//
-//    protected boolean usernameExists() throws DoesNotExistException {
-//        for (Users user : MockDatabase.getInstance().getUsers()) {
-//            if (user.getUsername().equals(username)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 
     //GET
     public String getEmail() {
@@ -145,7 +121,7 @@ public class RestaurantUserSenzu implements Serializable {
         return address;
     }
 
-    public String getopeningHours() {
+    public String getOpeningHours() {
         return openingHours;
     }
 
@@ -194,7 +170,7 @@ public class RestaurantUserSenzu implements Serializable {
         this.username = username;
     }
 
-    public void setOwner(String restaurantOwner) {
+    public void setRestaurantOwner(String restaurantOwner) {
         this.restaurantOwner = restaurantOwner;
     }
 
@@ -202,7 +178,7 @@ public class RestaurantUserSenzu implements Serializable {
         this.address = address;
     }
 
-    public void setopeningHours(String openingHours) {
+    public void setOpeningHours(String openingHours) {
         this.openingHours = openingHours;
     }
 
@@ -227,8 +203,10 @@ public class RestaurantUserSenzu implements Serializable {
         this.menu = menu;
     }
 
-    public void setSpecialdietlist(ArrayList<String> specialdiet) {
+    public void setSpecialdietlist(ArrayList<String> specialdietlist) {
         this.specialdietlist = specialdietlist;
+        this.specialdiet = specialdietlist.toString().substring(1,specialdietlist.toString().length()-1);
+        
     }
     
      public void setSpecialdiet(String specialdiet) {

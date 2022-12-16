@@ -25,7 +25,7 @@ public class UserSenzu implements Serializable {
     private String lastName = "";
     private String email = "";
     private String password = "";
-     private String restaurantName = "";
+    private String restaurantName = "";
     
     
     public String createAUser() {
@@ -42,7 +42,7 @@ public class UserSenzu implements Serializable {
                 newUser.setPassword(password.hashCode());
                 PersistenceClient.getInstance().createUser(newUser);
             }  
-        return"/MainPage/LoginPage.xhtml?faces-redirect=true";
+        return "/MainPage/LoginPage.xhtml?faces-redirect=true";
         } catch (AlreadyExistsException ex) {
             System.out.println(ex.getMessage());
         }

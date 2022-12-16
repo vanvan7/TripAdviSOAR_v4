@@ -37,23 +37,32 @@ public class RestaurantSenzu implements Serializable {
     private String menu = "";
     private String specialdiet = "";
     private String rating;
-    private ArrayList<Integer> ratinglist;
+    private String ratingSubmit;
     private Restaurants currentRestaurant;
     
 
-//    public Restaurants searchRestaurant(){
-//        try {
-//            Restaurants r = PersistenceClient.getInstance().checkPassword(username, password.hashCode());
-//            if (r != null){
-//                currentRestaurant = r;
-//                System.out.println(this.getCurrentRestaurant().toString());
-//        
-//            }
-//        } catch (DoesNotExistException ex) {
-//            System.out.println(ex.getMessage());
-//        }
-//
-//    }
+    public void SearchRestaurant(){
+        try {
+            Restaurants r = PersistenceClient.getInstance().checkExistingRestaurant(restaurantName);
+            if (r != null){
+                currentRestaurant = r;
+            }
+        } catch (DoesNotExistException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    public void addRating(){
+        if (currentRestaurant.getRating() == null || currentRestaurant.getRating() == ""){
+            currentRestaurant.setRating(ratingSubmit);
+        }
+        else{
+            currentRestaurant.setRating(currentRestaurant.getRating()+", "+ratingSubmit);
+        }
+        PersistenceClient.getInstance().updateRestaurant(currentRestaurant);
+    }
+    
+    
     
 //    public static Restaurants findByRestaurantName(String restaurantName) throws DoesNotExistException {
 //        for (Restaurants restaurant : MockDatabase.getInstance().getRestaurant()) {
@@ -109,6 +118,14 @@ public class RestaurantSenzu implements Serializable {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+    
+    public String getRatingSubmit() {
+        return ratingSubmit;
+    }
+
+    public void setRatingSubmit(String ratingSubmit) {
+        this.ratingSubmit = ratingSubmit;
     }
 
     public String getRestaurantOwner() {
@@ -175,14 +192,6 @@ public class RestaurantSenzu implements Serializable {
     
     public void setSpecialdiet(String specialdiet) {
         this.specialdiet = specialdiet;
-    }
-    
-    public ArrayList<Integer> getRatinglist() {
-        return ratinglist;
-    }
-    
-    public void setRatinglist (ArrayList<Integer> ratinglist){
-        this.ratinglist=ratinglist;
     }
     
     public Restaurants getCurrentRestaurant(){

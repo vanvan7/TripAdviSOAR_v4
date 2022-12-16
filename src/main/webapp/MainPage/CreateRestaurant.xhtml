@@ -94,9 +94,9 @@
                     <h:outputText value="Phone number"/>
                     <h:inputText value="#{restaurantUserSenzu.contact}" />
                     <h:outputText value="Add your menu"/>
-                    <h:inputText value="#{restaurantUserSenzu.dish}" />
+                    <h:inputText value="#{restaurantUserSenzu.menu}" />
                     <h:outputText value="Select a special diet: "/>
-                    <p:selectManyButton value="#{restaurantUserSenzu.specialdiet}">  
+                    <p:selectManyButton value="#{restaurantUserSenzu.specialdietlist}">  
                         <f:selectItem itemLabel="Lactosefree" itemValue="Lactose Free" />  
                         <f:selectItem itemLabel="GlutenFree" itemValue="Gluten Free" />  
                         <f:selectItem itemLabel="Vegan" itemValue="Vegan" />  
@@ -105,7 +105,7 @@
                     <p:commandButton value="Submit" update="bol" icon="ui-icon-check" />  
                     <p:spacer />  
                     <h:outputText value="Selected:" />  
-                    <p:dataList id="bol" value="#{restaurantUserSenzu.specialdiet}" var="character" emptyMessage="No character selected">  
+                    <p:dataList id="bol" value="#{restaurantUserSenzu.specialdietlist}" var="character" emptyMessage="No character selected">  
                         <h:outputText value="#{character}" style="font-weight: bold" />  
                     </p:dataList>      
                     <h:commandButton value="Create a User" action="#{restaurantUserSenzu.createARestaurantUser()}"/>
